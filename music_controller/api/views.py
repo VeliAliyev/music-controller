@@ -1,9 +1,30 @@
+from urllib import request
+from django.http import HttpResponse
 from django.shortcuts import render
 from rest_framework import generics, status
 from .models import Room
 from .serializers import RoomSerializer, CreateRoomSerializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
+
+class GetRoomView(APIView):
+    queryset = Room.objects.all()
+    serializer_class = RoomSerializer
+    def get(self, request):
+
+        code = request.GET.get('code')
+        if code:
+            room = self.queryset.filter(code=code)
+            
+            if room:
+                data = self.serializer_class(room[0]).data
+                data['is_host'] = self.request.session.session_key == room[0].host
+                return Response(data, status=status.HTTP_200_OK)
+            return Response({"Room Not Found: Invalid room code"}, status=status.HTTP_404_NOT_FOUND)
+        return Response({"Bad Request: Code Parameter Not Found In Request"}, status=status.HTTP_400_BAD_REQUEST)
+
+    
 
 
 class RoomView(generics.ListAPIView):
