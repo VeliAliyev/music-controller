@@ -10,9 +10,14 @@ import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { FormLabel } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
 
 
-export default class CreateRoomPage extends Component{
+function withRouter(Component) {    
+    return props => <Component {...props} navigate={useNavigate()} />;
+  }
+
+class CreateRoomPage extends Component{
     
     defaultVotes=2;
     
@@ -49,7 +54,7 @@ export default class CreateRoomPage extends Component{
             })
         };
 
-        fetch("/api/create", requestOptions).then((response)=>response.json()).then((data)=> this.props.history.push("/room/" + data.code));
+        fetch("/api/create", requestOptions).then((response)=>response.json()).then((data)=> this.props.navigate("/room/" + data.code));
     }
 
     render(){
@@ -117,3 +122,4 @@ export default class CreateRoomPage extends Component{
     }
 
 }
+export default withRouter(CreateRoomPage);
