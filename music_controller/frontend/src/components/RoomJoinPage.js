@@ -24,11 +24,7 @@ class RoomJoinPage extends Component{
     };
 
     handleJoinCodeChange(e){
-
-        this.setState({roomCode: e.target.value}, function () {
-            console.log(this.state.roomCode);
-        });
-        
+        this.setState({roomCode: e.target.value})
     };
 
     handleRoomButtonPressed(){
