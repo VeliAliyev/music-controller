@@ -1,2 +1,2 @@
 # music-controller
-An aplication made with django and react for leaning purposes
+An aplication made with django and react for learning purposes
