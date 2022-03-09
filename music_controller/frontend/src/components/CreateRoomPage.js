@@ -103,19 +103,25 @@ class CreateRoomPage extends Component{
                     spacing={1}
                     container
                     direction="row"
+                     
                     alignItems="center"
-                    justifyContent="center">
-                
-                    <Grid item align="right">
-                        <Button  color="secondary" variant="outlined" onClick={this.handleRoomButtonPressed}>
+                    justifyContent="center"
+                    style={{border:"5px solid green"}} >
+                    
+                        <Grid item  >
+                    
+                            <Button  color="secondary" variant="outlined" onClick={this.handleRoomButtonPressed}>
                                 Create A Room
-                        </Button>
-                    </Grid>
-                    <Grid item  align="left">
-                        <Button   color="primary" variant="outlined" to="/" component={Link}>
+                            </Button>
+                        </Grid>
+                        <Grid item >
+                            <Button   color="primary" variant="outlined" to="/" component={Link}>
                             Back
-                        </Button>
-                    </Grid>
+                            </Button>
+                   
+                        
+                        </Grid>
+            
                 </Grid>
             </Grid>
         );
