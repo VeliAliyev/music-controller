@@ -16,7 +16,8 @@ class RoomJoinPage extends Component{
     constructor(props){
         super(props);
         this.state={
-            roomCode: "mooo"
+            roomCode: "",
+            error: "",
         }
 
         this.handleJoinCodeChange = this.handleJoinCodeChange.bind(this);
@@ -29,16 +30,32 @@ class RoomJoinPage extends Component{
 
     handleRoomButtonPressed(){
                 
-        fetch("/api/get-room" + "?code=" + this.state.roomCode).then((response)=>response.json()).then((data)=>{
-            console.log(data)
-            this.props.navigate("/room/" + data.code)
+        const requestOptions={
+            method: "POST",
+            headers:{"Content-Type" : "application/json"},
+            body: JSON.stringify({
+                code: this.state.roomCode,
+            })
+        };
+        
+        fetch("/api/join", requestOptions).then((response)=>{
+
+            if (response.ok){
+                this.props.navigate("/room/"+this.state.roomCode);
+            }
+            else{
+                this.setState({error:"Room not Found!"});
+            }
+
+        }).catch((error)=>{
+            console.log(error);
         });
     };
 
     render(){
-        return(<Grid container>
+        return(<Grid container spacing={10}>
 
-            <Grid container alignItems="center" justifyContent="center">
+            <Grid container item alignItems="flex-end" justifyContent="center">
                 <Grid item>
                     <Typography component="h4" variant="h4">
                         Join A Room 
@@ -47,23 +64,20 @@ class RoomJoinPage extends Component{
 
             </Grid>
 
-            <Grid container alignItems="center" justifyContent="flex-start" direction="column"> 
+            <Grid container alignItems="center" justifyContent="flex-start" direction="column" spacing={10}> 
 
                 <Grid item>
                     <FormControl>
                         <TextField 
+                            
+                            label="Code"
+                            placeholder="Enter a Room Code"
+                            value={this.state.roomCode}
+                            helperText={this.state.error}
+                            variant="outlined"
                             required={true}
-                            type="text"
-                            inputProps={{
-                                style: {textAlign:"center"}
-                            }}
                             onChange={this.handleJoinCodeChange}
                         />
-                        <FormHelperText component= "div">
-                            <div align="center">
-                                    Enter the join code
-                            </div>
-                        </FormHelperText>
                     </FormControl>
                 </Grid>
 
