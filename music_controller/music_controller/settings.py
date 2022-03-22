@@ -30,7 +30,7 @@ SECRET_KEY = env("SECRET_KEY")
 CLIENT_ID = env("CLIENT_ID")
 CLIENT_SECRET = env("CLIENT_SECRET")
 REDIRECT_URI = env("REDIRECT_URI")
-print("CLIENT_ID: ", CLIENT_ID )
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api.apps.ApiConfig',
     'rest_framework',
-    'frontend'
+    'frontend',
+    'spotify'
 ]
 
 MIDDLEWARE = [
