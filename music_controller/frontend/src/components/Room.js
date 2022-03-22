@@ -19,10 +19,11 @@ class Room extends Component{
             showSettings: false,
         }
         this.roomCode = this.props.params.roomCode;
-        this.getRoomDetails();
         this.leaveButtonPressed = this.leaveButtonPressed.bind(this);
         this.updateShowSettings = this.updateShowSettings.bind(this);
         this.renderSettingsButton = this.renderSettingsButton.bind(this);
+        this.getRoomDetails = this.getRoomDetails.bind(this);
+        this.getRoomDetails();
     }
 
     getRoomDetails(){
@@ -83,8 +84,8 @@ class Room extends Component{
                     update={true}
                     votesToSkip={this.state.votesToSkip}
                     guestCanPause={this.state.guestCanPause}
-                    roomCode={this.state.roomCode}
-                    updateCallback={()=>{}}
+                    roomCode={this.roomCode}
+                    updateCallback={this.getRoomDetails}
                 />
             </Grid>
             <Grid item xs={12} align="center">
@@ -108,7 +109,7 @@ class Room extends Component{
             return(<Grid container spacing={1}>
                 <Grid item xs={12} align="center">
                     <Typography variant="h4" component="h4">
-                        Code: {this.state.roomCode}
+                        Code: {this.roomCode}
                     </Typography>
                 </Grid>
                 <Grid item xs={12} align="center">

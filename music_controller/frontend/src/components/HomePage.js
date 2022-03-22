@@ -75,8 +75,3 @@ export default class HomePage extends Component{
     }
 
 }
-
-/*render={(props) => {
-                        return <Room {...props} leaveRoomCallback={this.clearRoomCode}/>
-                      }
-                    } */
