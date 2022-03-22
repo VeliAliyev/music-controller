@@ -132,6 +132,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+music_controller/music_controller/.env
 
 # Spyder project settings
 .spyderproject
