@@ -29,6 +29,7 @@ class Room extends Component{
         this.authenticateSpotify = this.authenticateSpotify.bind(this);
         this.getCurrentSong = this.getCurrentSong.bind(this);
         this.getRoomDetails();
+       
         
     }
 
@@ -58,7 +59,7 @@ class Room extends Component{
             this.setState({
                 song: data
             });
-            console.log(data);
+            console.log(this.state.song.is_playing);
         });
     }
 

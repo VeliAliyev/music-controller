@@ -16,6 +16,19 @@ export default class MusicPlayer extends Component {
 
     constructor(props){
         super(props);
+        this.playPauseSong =  this.playPauseSong.bind(this);
+    }
+
+    playPauseSong(){
+        
+        const requestOptions={
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({
+               is_playing:this.props.is_playing
+            })
+        };
+        fetch("/spotify/play-pause", requestOptions).then((response) => response.json());
     }
 
     render(){
@@ -37,7 +50,7 @@ export default class MusicPlayer extends Component {
                             {this.props.artist}
                         </Typography>
                         <div>
-                            <IconButton>
+                            <IconButton onClick={ this.playPauseSong}>
                                 {this.props.is_playing ? <PauseIcon/> : <PlayArrowIcon/>}
                             </IconButton>
                             <IconButton>
