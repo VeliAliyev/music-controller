@@ -73,7 +73,9 @@ export default class MusicPlayer extends Component {
                         </Typography>
                         
                         <ButtonGroup >
+                            
                             <IconButton onClick={ this.skipPrev}>
+                            {this.props.votes} / {this.props.votes_required}
                                 <SkipPreviousIcon/>
                             </IconButton>
                             <IconButton onClick={ this.playPauseSong} disabled={this.props.isHost || this.props.guestCanPause ? false : true}>
@@ -81,7 +83,9 @@ export default class MusicPlayer extends Component {
                             </IconButton>
                             <IconButton onClick={ this.skipNext}>
                                 <SkipNextIcon/>
+                                {this.props.votes} / {this.props.votes_required}
                             </IconButton>
+                            
                         </ButtonGroup>
                         
                     </Grid>
