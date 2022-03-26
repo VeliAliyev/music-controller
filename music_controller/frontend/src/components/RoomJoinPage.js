@@ -26,10 +26,11 @@ class RoomJoinPage extends Component{
 
     handleJoinCodeChange(e){
         this.setState({roomCode: e.target.value})
+        
     };
 
     handleRoomButtonPressed(){
-                
+        
         const requestOptions={
             method: "POST",
             headers:{"Content-Type" : "application/json"},

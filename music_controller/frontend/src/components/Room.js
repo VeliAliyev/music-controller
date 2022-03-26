@@ -29,7 +29,6 @@ class Room extends Component{
         this.authenticateSpotify = this.authenticateSpotify.bind(this);
         this.getCurrentSong = this.getCurrentSong.bind(this);
         this.getRoomDetails();
-        
     }
 
     componentDidMount(){
@@ -58,7 +57,7 @@ class Room extends Component{
             this.setState({
                 song: data
             });
-            console.log(data);
+            console.log(this.state.song.is_playing);
         });
     }
 
@@ -140,20 +139,24 @@ class Room extends Component{
     }
 
     render(){
-         
+
             if(this.state.showSettings)
                 return this.renderSettings();
     
-            return(<Grid container spacing={1}>
+            return(<Grid container spacing={1} align="center">
                 <Grid item xs={12} align="center">
                     <Typography variant="h4" component="h4">
                         Code: {this.roomCode}
                     </Typography>
                 </Grid>
-                <MusicPlayer {...this.state.song}/>
-                {this.state.isHost ? this.renderSettingsButton() : null}
+                <Grid container item align="center" justifyContent="center">
+                    <MusicPlayer {...this.state.song} guestCanPause={this.state.guestCanPause} isHost={this.state.isHost}/>
+                </Grid>
+                
                 <Grid item xs={12} align="center">
+                {this.state.isHost ? this.renderSettingsButton() : null}
                     <Button
+                    style={{"margin":"1%"}}
                     variant="outlined"
                     color="secondary"
                     onClick={this.leaveButtonPressed}>
