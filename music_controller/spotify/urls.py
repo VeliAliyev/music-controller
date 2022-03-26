@@ -7,4 +7,6 @@ urlpatterns = [
     path('is-authenticated', IsAuthenticated.as_view()),
     path('current-song', CurrentSong.as_view()),
     path('play-pause', PlayPause.as_view()),
+    path('skip-next', SkipNext.as_view()),
+    path('skip-prev', SkipPrev.as_view()),
 ]

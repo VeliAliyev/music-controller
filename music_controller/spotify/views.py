@@ -54,18 +54,21 @@ class CurrentSong(APIView):
     
     def get(self, request):
         
-        room_code = self.request.session.get('room_code')
-        room = Room.objects.filter(code=room_code)
         
-        if room.exists():
-            room = room[0]
+        room_code = self.request.session.get('room_code')
+        queryset = Room.objects.filter(code=room_code)
+        
+        if queryset.exists():
+            room = queryset.first()
         else:
-            return Response({}, status=status.HTTP_404_NOT_FOUND)
+           
+            print(room_code)
+            return Response({"ROOM NOT FOUND": room_code}, status=status.HTTP_404_NOT_FOUND)
         
         host = room.host
         endpoint = "player/currently-playing"
         response = execute_spotify_api_request(host, endpoint)
-
+        
         if 'error' in response or 'item' not in response:
             return Response({}, status=status.HTTP_204_NO_CONTENT)
         
@@ -110,5 +113,25 @@ class PlayPause(APIView):
             else: endpoint = "player/play"
 
             execute_spotify_api_request(room.host, endpoint, put_=True)
+            return Response({}, status=status.HTTP_200_OK)
+        return Response({}, status=status.HTTP_403_FORBIDDEN)
+
+class SkipNext(APIView):
+    def put(self, request):
+        room_code = self.request.session.get('room_code')
+        room = Room.objects.filter(code=room_code).first()
+        if(room.host == self.request.session.session_key or room.guest_can_pause):
+            execute_spotify_api_request(room.host, "player/next", post_=True)
+            return Response({}, status=status.HTTP_200_OK)
+        return Response({}, status=status.HTTP_403_FORBIDDEN)
+
+
+
+class SkipPrev(APIView):
+    def put(self, request):
+        room_code = self.request.session.get('room_code')
+        room = Room.objects.filter(code=room_code).first()
+        if(room.host == self.request.session.session_key or room.guest_can_pause):
+            execute_spotify_api_request(room.host, "player/previous", post_=True)
             return Response({}, status=status.HTTP_200_OK)
         return Response({}, status=status.HTTP_403_FORBIDDEN)
