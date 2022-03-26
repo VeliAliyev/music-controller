@@ -26,8 +26,6 @@ class GetRoomView(APIView):
             return Response({"Room Not Found: Invalid room code"}, status=status.HTTP_404_NOT_FOUND)
         return Response({"Bad Request: Code Parameter Not Found In Request"}, status=status.HTTP_400_BAD_REQUEST)
 
-    
-
 
 class RoomView(generics.ListAPIView):
     queryset = Room.objects.all()
